@@ -2,10 +2,11 @@ require 'rails_helper'
 
 RSpec.describe '[Project]' do
 
-  let(:project) { Project.new }
+  let(:project) { Project.new name: '测试用项目名称' }
   let(:task) { Task.new }
 
   specify '项目必须要有名称才能成功创建' do
+    project.name = nil
     expect(project).to_not be_valid
     project.name = '测试用项目名称'
     expect(project).to be_valid
@@ -19,7 +20,6 @@ RSpec.describe '[Project]' do
   end
 
   specify '没有任何任务的项目视为已完成' do
-    project.name = '没有任务的项目'
     expect(project).to be_done
   end
 
