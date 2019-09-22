@@ -5,7 +5,16 @@ class Project < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   def done?
-    true
+    if tasks
+      return incomplete_tasks.empty?
+    else
+      return true
+    end
+  end
+
+  # 回传未完成任务的总数
+  def incomplete_tasks
+    tasks.reject(&:completed?)
   end
 
 end
