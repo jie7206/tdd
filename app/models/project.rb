@@ -12,7 +12,7 @@ class Project < ApplicationRecord
     end
   end
 
-  # 回传未完成任务的总数
+  # 回传未完成的任务
   def incomplete_tasks
     tasks.reject(&:completed?)
   end
