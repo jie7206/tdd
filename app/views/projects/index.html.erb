@@ -1,0 +1,6 @@
+<h1>项目列表</h1>
+<ul>
+  <% @projects.each do |project| %>
+    <li><%= project.name %>(未完成任务数：<%= project.incomplete_tasks.count %>)</li>
+  <% end %>
+</ul>

@@ -1,0 +1,7 @@
+<h1>创建项目</h1>
+
+<%= form_for(@project) do |f| %>
+  <%= f.label('项目名称') %>：<%= f.text_field(:name) %><br/>
+  <%= f.label('任务名称') %>：<%= text_area_tag("project[tasks]") %><br/>
+  <%= f.submit('创建项目') %>
+<% end %>
