@@ -1,6 +1,24 @@
-<h1>项目列表</h1>
-<ul>
-  <% @projects.each do |project| %>
-    <li><%= project.name %>(未完成任务数：<%= project.incomplete_tasks.count %>)</li>
-  <% end %>
-</ul>
+<h2><%= link_to '项目列表', new_project_path %></h2>
+<table cellspacing="10">
+  <thead>
+    <tr>
+      <td>项目名称</td>
+      <td>未完成的任务名称</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @projects.each do |project| %>
+      <tr valign="top">
+        <tr class="project-row" id="<%= dom_id(project) %>">
+        <td class="name"><%= project.name %></td>
+        <td>
+          <% n = 1 %>
+          <% project.incomplete_tasks.each do |task| %>
+            <%=n%>. <%= task.name %><br/>
+            <% n += 1 %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

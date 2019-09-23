@@ -1,4 +1,4 @@
-class CreateProject
+class CreateProject < ApplicationController
 
   attr_accessor :name, :project, :task_string
 
@@ -8,7 +8,7 @@ class CreateProject
   end
 
   def build
-    self.project = Project.new name: name
+    self.project = Project.new(name: name)
     project.tasks = str_to_tasks
     project
   end

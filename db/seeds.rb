@@ -5,3 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+CreateProject.new(
+  name: 'TDD测试驱动开发',
+  task_string: "建立项目模型\n建立任务模型\n建立模型测试").create

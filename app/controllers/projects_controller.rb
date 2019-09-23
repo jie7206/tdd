@@ -9,9 +9,10 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.new(project_params)
-    creator = CreateProject.new(name: @project.name, task_string: params[:project][:tasks])
-    if creator.create
+    @creator = CreateProject.new(
+      name: params[:project][:name],
+      task_string: params[:project][:tasks])
+    if @creator.create
       flash[:info] = "项目已创建成功！"
       redirect_to projects_path
     else
