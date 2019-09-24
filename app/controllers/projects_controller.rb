@@ -12,11 +12,13 @@ class ProjectsController < ApplicationController
     @creator = CreateProject.new(
       name: params[:project][:name],
       task_string: params[:project][:tasks])
-    if @creator.create
+    if @creator.create and @creator.success?
       flash[:info] = "项目已创建成功！"
       redirect_to projects_path
     else
-      render 'new'
+      flash.now[:warning] = @creator.error_msg
+      @project = @creator.project
+      render :new
     end
   end
 

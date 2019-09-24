@@ -1,10 +1,12 @@
 class CreateProject < ApplicationController
 
-  attr_accessor :name, :project, :task_string
+  attr_accessor :name, :project, :task_string, :error_msg, :success
 
   def initialize(name: '', task_string: '')
     @name = name
     @task_string = task_string
+    @error_msg = nil
+    @success = false
   end
 
   def build
@@ -15,7 +17,17 @@ class CreateProject < ApplicationController
 
   def create
     build
-    project.save
+    if project.save
+      @success = true
+      return true
+    else
+      @error_msg = project.errors.messages[:name][0]
+      return false
+    end
+  end
+
+  def success?
+    @success
   end
 
   def str_to_tasks

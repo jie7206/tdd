@@ -10,6 +10,16 @@ RSpec.describe CreateProject do
     specify { expect(creator.project.name).to eq '测试用项目名称' }
   end
 
+  describe '项目名称为空白时能提示错误' do
+    let(:task_string) { '' }
+    before {
+      creator.name = ''
+      creator.create
+    }
+    specify { expect(creator.error_msg).to eq '创建项目失败!(项目必须提供名称)' }
+    specify { expect(creator).to_not be_success }
+  end
+
 
   describe '解析输入字串' do
 

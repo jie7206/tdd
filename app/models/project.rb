@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
 
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: {message:'创建项目失败!(项目必须提供名称)'}, length: { maximum: 50 }
 
   has_many :tasks, dependent: :destroy
 
