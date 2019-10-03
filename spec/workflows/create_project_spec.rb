@@ -16,7 +16,7 @@ RSpec.describe CreateProject do
       creator.name = ''
       creator.create
     }
-    specify { expect(creator.error_msg).to eq '创建项目失败!(项目必须提供名称)' }
+    specify { expect(creator.error_msg).to eq $project_name_blank_error_msg }
     specify { expect(creator).to_not be_success }
   end
 
