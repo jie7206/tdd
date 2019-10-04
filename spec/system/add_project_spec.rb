@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe '创建项目系统测试', type: :system do
+RSpec.describe '系统测试：创建项目', type: :system do
 
   specify '允许用户创建项目时和任务一起创建' do
     visit new_project_path
