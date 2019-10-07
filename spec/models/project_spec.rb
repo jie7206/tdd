@@ -5,6 +5,7 @@ RSpec.describe '模型测试：Project', type: :model do
   let(:project) { Project.new name: '测试用项目名称' }
   let(:task) { Task.new name: '测试用任务名称1' }
   let(:other_task) { Task.new name: '测试用任务名称2' }
+  let(:other_task_ext1) { Task.new name: '测试用任务名称3' }
 
   specify '项目必须要有名称才能成功创建' do
     project.name = nil
@@ -48,10 +49,26 @@ RSpec.describe '模型测试：Project', type: :model do
     expect(project).to_not be_done
   end
 
-  specify '能正确回传未完成任务的总数' do
+  specify '能正确回传所有任务的总数' do
     project.tasks << task
     project.tasks << other_task
-    expect(project.incomplete_tasks.count).to eq 2
+    project.tasks << other_task_ext1
+    expect(project).to have_tasks 3
+  end
+
+  specify '能正确回传已完成任务的总数' do
+    task.mark_as_completed
+    project.tasks << task
+    project.tasks << other_task
+    project.tasks << other_task_ext1
+    expect(project).to have_tasks(1).only_completed
+  end
+
+  specify '能正确回传未完成任务的总数' do
+    task.mark_as_completed
+    project.tasks << task
+    project.tasks << other_task
+    expect(project).to have_tasks(1).only_incomplete
   end
 
 end
