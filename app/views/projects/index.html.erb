@@ -3,23 +3,24 @@
   <thead>
     <tr>
       <td>项目名称</td>
-      <td>未完成的任务名称</td>
+      <td>任务名称</td>
+      <td><%= link_to '新增项目', new_project_path %></td>
     </tr>
   </thead>
   <tbody>
     <% @projects.each do |project| %>
       <tr valign="top">
         <tr class="project-row" id="<%= dom_id(project) %>">
-        <td class="name"><%= project.name %></td>
+        <td class="name" valign="top"><%= link_to project.name, edit_project_path(project) %></td>
         <td>
           <% n = 1 %>
-          <% project.incomplete_tasks.each do |task| %>
+          <% project.tasks.each do |task| %>
             <span id="<%= dom_id(project) %>_task_<%=n%>"><%=n%></span>. <%= task.name %><br/>
             <% n += 1 %>
           <% end %>
         </td>
+        <td></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%= link_to '创建项目', new_project_path %>

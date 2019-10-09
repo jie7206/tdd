@@ -1,16 +1,2 @@
-<h2>创建项目</h2>
-
-<%= form_for(@project) do |f| %>
-<table>
-  <tr>
-    <td>项目名称：</td><td><%= f.text_field(:name, size: 51) %></td>
-  </tr>
-  <tr>
-    <td valign="top">任务名称：</td><td><%= text_area_tag("project[tasks]", '', size: '50x10') %></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="right">
-      <%= link_to "返回列表", projects_path %>
-      <%= f.submit('创建项目') %></td>
-  </tr>
-<% end %>
+<h2>新增项目</h2>
+<%= render 'form', submit_label: '新增项目' %>
