@@ -36,7 +36,7 @@ RSpec.describe '系统测试：管理项目', type: :system do
 
   describe "对项目进行编辑与删除操作" do
 
-    let(:project) { create(:project) }
+    let!(:project) { create(:project) }
 
     specify '允许用户更新项目名称' do
       visit edit_project_path(project)
@@ -47,7 +47,6 @@ RSpec.describe '系统测试：管理项目', type: :system do
     end
 
     specify '允许用户删除某个项目' do
-      project
       visit projects_path
       expect(page).to have_link project.name
       visit edit_project_path(project)
