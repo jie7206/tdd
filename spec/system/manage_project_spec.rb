@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe '系统测试：创建项目', type: :system do
+RSpec.describe '系统测试：管理项目', type: :system do
 
   specify '允许用户创建项目时和任务一起创建' do
     visit new_project_path
@@ -19,7 +19,7 @@ RSpec.describe '系统测试：创建项目', type: :system do
   specify '允许用户创建项目时返回项目列表' do
     visit new_project_path
     click_on '返回列表'
-    expect(page).to have_selector 'h2 a', text: '项目列表'
+    expect(page).to have_selector '#projects_list_title', text: '项目列表'
   end
 
   specify '创建项目时若无名称则显示失败' do
