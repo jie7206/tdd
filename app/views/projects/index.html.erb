@@ -1,10 +1,9 @@
 <h3 id="projects_list_title">项目列表</h3>
-<table cellspacing="10">
+<table id="project_list_table">
   <thead>
     <tr>
-      <td>项目名称</td>
+      <td>项目名称 <small>(<%= link_to '新增项目', new_project_path %>)</small></td>
       <td>任务名称</td>
-      <td><%= link_to '新增项目', new_project_path %></td>
     </tr>
   </thead>
   <tbody>
@@ -15,11 +14,10 @@
         <td>
           <% n = 1 %>
           <% project.tasks.each do |task| %>
-            <span id="<%= dom_id(project) %>_task_<%=n%>"><%=n%></span>. <%= task.name %><br/>
+            <span id="<%= dom_id(project) %>_task_<%=n%>"/><%= link_to task.name, edit_task_path(task) %><%= pass_img %><br/>
             <% n += 1 %>
           <% end %>
         </td>
-        <td></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,0 +1,12 @@
+<h2>编辑任务</h2>
+<%= form_for(@task) do |f| %>
+<table>
+  <tr>
+    <td>任务名称：</td><td><%= f.text_field(:name, size: 50) %></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="right">
+      <small>(<%= link_to "返回列表", projects_path %>)</small>
+      <%= f.submit("更新任务") %></td>
+  </tr>
+<% end %>
