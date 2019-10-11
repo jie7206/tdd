@@ -8,6 +8,7 @@ RSpec.describe '系统测试(Projects)', type: :system do
       visit new_project_path
       fill_in 'project[name]', with: 'TDD开发管理系统'
       click_on '新增项目'
+      expect(current_path).to eq projects_path
       expect(page).to have_selector ".alert-info"
     end
 
@@ -58,8 +59,19 @@ RSpec.describe '系统测试(Projects)', type: :system do
       expect(current_path).to eq edit_project_path(project)
       click_link '删除此项目'
       expect(page).to_not have_content project.name
-      expect(page).to have_selector ".alert-info"
       expect(current_path).to eq projects_path
+      expect(page).to have_selector ".alert-info"
+    end
+
+    specify '能在项目编辑页中快速增加几个任务' do
+      visit edit_project_path(project)
+      fill_in 'project[tasks]', with: "新任务1\n新任务2"
+      click_on '更新项目'
+      expect(current_path).to eq projects_path
+      expect(page).to have_content '新任务1'
+      expect(page).to have_content '新任务2'
+      expect(page).to have_content project.name, count: 1
+      expect(page).to have_selector ".alert-info"
     end
 
   end

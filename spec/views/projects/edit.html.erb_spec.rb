@@ -9,8 +9,8 @@ RSpec.describe "页面测试(projects/edit)", type: :system do
     expect(page).to have_selector 'input', id: 'project_name'
   end
 
-  specify '编辑项目的页面不能显示任务名称属性' do
-    expect(page).to_not have_selector 'textarea', id: 'project_tasks'
+  specify '编辑项目的页面能显示添加新任务多行文本框' do
+    expect(page).to have_selector 'textarea', id: 'project_tasks'
   end
 
   specify '编辑项目的页面能显示删除项目的链接' do

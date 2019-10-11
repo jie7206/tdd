@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def site_logo
-    raw('<span id="rails_logo">'+image_tag("TDD3Steps.png", alt: "Rails logo", width: 60, align: "absmiddle", style: "border: 2px #ddd solid;border-style: outset;margin-right:0.3em")+'</span>')
+    raw('<span id="rails_logo">'+image_tag("TDD3Steps.png", alt: "Rails logo", align: "absmiddle")+'</span>')
   end
 
   def pass_img(flag=true)

@@ -29,7 +29,7 @@ RSpec.describe '系统测试(CreateProject)' do
 
   describe '解析任务输入多行字符串' do
 
-    let(:tasks) { creator.str_to_tasks }
+    let(:tasks) { creator.str_to_tasks(task_string) }
 
     context '能正确处理空字符串' do
       let(:task_string) { '' }

@@ -4,9 +4,10 @@
     <tr>
       <td>项目名称 <small>(<%= link_to '新增项目', new_project_path %>)</small></td>
       <td>任务名称</td>
-      <td>编写测试 ➠</td>
-      <td>通过测试 ➠</td>
-      <td>重构代码</td>
+      <% td_width = 84 %>
+      <td width="<%=td_width%>">编写测试 ➠</td>
+      <td width="<%=td_width%>">通过测试 ➠</td>
+      <td width="<%=td_width%>">重构代码</td>
     </tr>
   </thead>
   <tbody>

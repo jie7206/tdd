@@ -1,13 +1,11 @@
 <%= form_for(@project) do |f| %>
 <table>
   <tr>
-    <td>项目名称：</td><td><%= f.text_field(:name, size: 51) %></td>
+    <td>项目的名称：</td><td><%= f.text_field(:name, size: 51) %></td>
   </tr>
-  <% if !@project.created_at %>
   <tr>
-    <td valign="top">任务名称：</td><td><%= text_area_tag("project[tasks]", '', size: '50x10') %></td>
+    <td valign="top">新任务名称：</td><td><%= text_area_tag("project[tasks]", '', size: '50x10') %></td>
   </tr>
-  <% end %>
   <tr>
     <td colspan="2" align="right">
       <small>(<%= link_to "返回列表", projects_path %>)</small>
