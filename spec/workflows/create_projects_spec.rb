@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe '系统测试(CreateProject)' do
+RSpec.describe '系统测试(CreateProjects)' do
 
-  let(:creator) { CreateProject.new name: '测试用项目名称', task_string: task_string }
+  let(:creator) { CreateProjects.new name: '测试用项目名称', task_string: task_string }
 
   describe '没输入任务字符串时也能成功创建项目' do
     let(:task_string) { '' }

@@ -1,4 +1,4 @@
-class CreateProject < ApplicationController
+class CreateProjects < ApplicationController
 
   attr_accessor :name, :project, :task_string, :error_msg, :success
 

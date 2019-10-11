@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @creator = CreateProject.new(
+    @creator = CreateProjects.new(
       name: params[:project][:name],
       task_string: params[:project][:tasks])
     if @creator.create and @creator.success?
