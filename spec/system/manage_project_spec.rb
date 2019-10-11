@@ -4,18 +4,19 @@ RSpec.describe '系统测试：管理项目', type: :system do
 
   describe "对项目进行新增操作" do
 
+    specify '允许用户新增项目时不输入任务内容' do
+      visit new_project_path
+      fill_in 'project[name]', with: 'TDD开发管理系统'
+      click_on '新增项目'
+      expect(page).to have_selector ".alert-info"
+    end
+
     specify '允许用户新增项目时和任务一起新增' do
       visit new_project_path
       fill_in 'project[name]', with: 'TDD开发管理系统'
       fill_in 'project[tasks]', with: "能新增一个项目\n设置项目属性的基本验证\n能显示项目中未完成的任务总数"
       click_on '新增项目'
-      visit projects_path
-      @project = Project.find_by(name:'TDD开发管理系统')
-      expect(page).to have_selector "#project_#{@project.id} .name", text: 'TDD开发管理系统'
-      expect(page).to have_content '能新增一个项目'
-      expect(page).to have_content '设置项目属性的基本验证'
-      expect(page).to have_content '能显示项目中未完成的任务总数'
-      expect(page).to have_selector "#project_#{@project.id}_task_3"
+      expect(page).to have_selector ".alert-info"
     end
 
     specify '允许用户新增项目时返回项目列表' do
@@ -56,6 +57,7 @@ RSpec.describe '系统测试：管理项目', type: :system do
       visit edit_project_path(project)
       click_on '删除此项目'
       expect(page).to_not have_content project.name
+      expect(page).to have_selector ".alert-info"
       expect(current_path).to eq projects_path
     end
 

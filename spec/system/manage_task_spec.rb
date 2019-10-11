@@ -20,14 +20,7 @@ RSpec.describe '系统测试：管理任务', type: :system do
       expect(page).to have_content '新任务名称'
     end
 
-    specify '允许用户删除某个任务' do
-      visit projects_path
-      # expect(page).to have_link project.name
-      # visit edit_project_path(project)
-      # click_on '删除此项目'
-      # expect(page).to_not have_content project.name
-      # expect(current_path).to eq projects_path
-    end
+    specify '允许用户删除某个任务'
 
   end
 

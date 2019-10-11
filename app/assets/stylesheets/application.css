@@ -33,9 +33,22 @@ a:hover { color: #fff;background-color:#00c;text-decoration:none; }
 #rails_logo {
   margin: 0.3em;
 }
-#rails_logo a:hover {
+#site_title a:hover {
+  color: #900;
   text-decoration:none;
 }
 #project_list_table {
   margin-top: -1.7em;
+}
+.alert-info {
+  background-color: #090;
+  color: white;
+  font-weight: bold;
+  padding: 0.2em;
+}
+.alert-warning {
+  background-color: #900;
+  color: white;
+  font-weight: bold;
+  padding: 0.2em;
 }

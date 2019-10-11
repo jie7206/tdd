@@ -4,21 +4,35 @@
     <tr>
       <td>项目名称 <small>(<%= link_to '新增项目', new_project_path %>)</small></td>
       <td>任务名称</td>
+      <td>编写测试 ➠</td>
+      <td>通过测试 ➠</td>
+      <td>重构代码</td>
     </tr>
   </thead>
   <tbody>
     <% @projects.each do |project| %>
-      <tr valign="top">
-        <tr class="project-row" id="<%= dom_id(project) %>">
-        <td class="name" valign="top"><%= link_to project.name, edit_project_path(project) %></td>
-        <td>
-          <% n = 1 %>
-          <% project.tasks.each do |task| %>
-            <span id="<%= dom_id(project) %>_task_<%=n%>"/><%= link_to task.name, edit_task_path(task) %><%= pass_img %><br/>
-            <% n += 1 %>
-          <% end %>
-        </td>
-      </tr>
+      <% if project.tasks_count > 0 %>
+        <% project_name_flag = false %>
+        <% n =1 %>
+        <% project.tasks.each do |task| %>
+          <tr valign="top">
+            <% if !project_name_flag %>
+              <td id="<%= dom_id(project) %>" class="name" valign="top" rowspan="<%= project.tasks_count %>"><%= link_to project.name, edit_project_path(project) %></td>
+              <% project_name_flag = true %>
+            <% end %>
+              <td id="<%= dom_id(project) %>_task_<%=n%>"><%= link_to task.name, edit_task_path(task) %></td>
+              <td align="center"><%= empty_img %></td>
+              <td align="center"><%= empty_img %></td>
+              <td align="center"><%= empty_img %></td>
+            </tr>
+          <% n += 1 %>
+        <% end %>
+      <% else %>
+        <tr>
+          <td id="<%= dom_id(project) %>" class="name" colspan="5"><%= link_to project.name, edit_project_path(project) %></td>
+        </tr>
+      <% end %>
+
     <% end %>
   </tbody>
 </table>
