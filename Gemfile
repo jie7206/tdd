@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7.0'
   gem 'guard-rspec', require: false
   gem 'factory_bot_rails'
+  gem 'launchy'
 end
 
 group :development do
