@@ -14,6 +14,11 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @task = Task.find(params[:id])
+    if @task.destroy
+      flash[:info] = "任务已删除成功！"
+      redirect_to projects_path
+    end
   end
 
   private

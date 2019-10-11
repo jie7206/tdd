@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe '系统测试：管理任务', type: :system do
+RSpec.describe '系统测试(Tasks)', type: :system do
 
   describe "对任务进行编辑与删除操作" do
 
@@ -20,7 +20,16 @@ RSpec.describe '系统测试：管理任务', type: :system do
       expect(page).to have_content '新任务名称'
     end
 
-    specify '允许用户删除某个任务'
+    specify '允许用户删除某个任务' do
+      visit projects_path
+      expect(page).to have_link task.name
+      click_link task.name
+      expect(current_path).to eq edit_task_path(task)
+      click_link '删除此任务'
+      expect(page).to_not have_content task.name
+      expect(page).to have_selector ".alert-info"
+      expect(current_path).to eq projects_path
+    end
 
   end
 

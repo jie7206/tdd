@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe '模型测试：Project', type: :model do
+RSpec.describe '模型测试(Project)', type: :model do
 
   let(:project) { Project.new name: '测试用项目名称' }
   let(:task) { Task.new name: '测试用任务名称1' }
@@ -25,7 +25,7 @@ RSpec.describe '模型测试：Project', type: :model do
     expect(project).to_not be_valid
   end
 
-  specify '没有任何任务的项目视为已完成' do
+  specify '若一个项目没有任何任务时视为已完成' do
     expect(project).to be_done
   end
 

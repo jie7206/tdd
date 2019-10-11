@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe '模型测试：Task', type: :model do
+RSpec.describe '模型测试(Task)', type: :model do
 
   let(:project) { Project.new name: '测试用项目名称' }
   let(:task) { Task.new name: '测试用任务名称', project: project }

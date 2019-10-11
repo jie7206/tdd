@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "projects/index.html.erb", type: :system do
+RSpec.describe "页面测试(projects/index)", type: :system do
 
   specify '项目列表的页面中应该有新增项目的链接' do
     visit projects_path
