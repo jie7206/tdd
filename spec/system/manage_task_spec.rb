@@ -31,6 +31,27 @@ RSpec.describe '系统测试(Tasks)', type: :system do
       expect(current_path).to eq projects_path
     end
 
+    specify '允许用户更新TDD步骤属性的值' do
+      visit projects_path
+      expect(page).to have_content task.name
+      click_link task.name
+      expect(current_path).to eq edit_task_path(task)
+      expect(page).to have_selector '#task_tdd_step'
+      select '1', from: 'task[tdd_step]'
+      click_on '更新任务'
+      expect(current_path).to eq projects_path
+      expect(page).to have_selector ".alert-info"
+      expect(task.reload.tdd_step).to eq 1
+    end
+
+    specify '点击任务列表旁的图示能将任务TDD步骤设为相应的数字' do
+      visit projects_path
+      find("#task_#{task.id}_tdd_step_1").click
+      expect(page).to have_selector '.pass_img', count: 1
+      find("#task_#{task.id}_tdd_step_2").click
+      expect(page).to have_selector '.pass_img', count: 2
+    end
+
   end
 
 end

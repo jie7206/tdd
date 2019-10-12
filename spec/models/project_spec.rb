@@ -18,10 +18,10 @@ RSpec.describe '模型测试(Project)', type: :model do
     expect(project).to be_valid
   end
 
-  specify '项目名称的长度不能超过50个字元' do
-    project.name = 'a'*50
+  specify '项目名称不能超过模型设定的最大长度' do
+    project.name = 'a'*$project_name_max_length
     expect(project).to be_valid
-    project.name = 'a'*51
+    project.name = 'a'*($project_name_max_length+1)
     expect(project).to_not be_valid
   end
 

@@ -4,10 +4,13 @@
     <tr>
       <td>项目名称 <small>(<%= link_to '新增项目', new_project_path %>)</small></td>
       <td>任务名称</td>
-      <% td_width = 84 %>
-      <td width="<%=td_width%>">编写测试 ➠</td>
-      <td width="<%=td_width%>">通过测试 ➠</td>
-      <td width="<%=td_width%>">重构代码</td>
+      <% td_width = 68 %>
+      <% tn = 1 %>
+      <% tdd_steps.each do |step| %>
+        <% arrow = tn == tdd_steps.size ? '' : ' ➠' %>
+        <td width="<%=td_width%>"><%= step %><%= arrow %></td>
+        <% tn += 1 %>
+      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -15,16 +18,19 @@
       <% if project.tasks_count > 0 %>
         <% project_name_flag = false %>
         <% n =1 %>
-        <% project.tasks.each do |task| %>
+        <% project.tasks.order(tdd_step: :desc).each do |task| %>
           <tr valign="top">
             <% if !project_name_flag %>
               <td id="<%= dom_id(project) %>" class="name" valign="top" rowspan="<%= project.tasks_count %>"><%= link_to project.name, edit_project_path(project) %></td>
               <% project_name_flag = true %>
             <% end %>
               <td id="<%= dom_id(project) %>_task_<%=n%>"><%= link_to task.name, edit_task_path(task) %></td>
-              <td align="center"><%= empty_img %></td>
-              <td align="center"><%= empty_img %></td>
-              <td align="center"><%= empty_img %></td>
+              <% (1..task.tdd_step).each do %>
+                <td align="center"><%= pass_img %></td>
+              <% end %>
+              <% (task.tdd_step+1..tdd_steps.size).each do |n| %>
+                <td align="center"><%= link_to empty_img, {controller: :tasks, action: :update_tdd_step, id: task.id, new_step_num: n},{id: "task_#{task.id}_tdd_step_#{n}"} %></td>
+              <% end %>
             </tr>
           <% n += 1 %>
         <% end %>

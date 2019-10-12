@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_22_143324) do
+ActiveRecord::Schema.define(version: 2019_10_12_070816) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2019_09_22_143324) do
     t.datetime "completed_at"
     t.string "name"
     t.integer "project_id"
+    t.integer "tdd_step", default: 0, null: false
   end
 
 end
