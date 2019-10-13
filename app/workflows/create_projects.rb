@@ -2,8 +2,7 @@ class CreateProjects < ApplicationController
 
   attr_accessor :name, :project, :task_string, :error_msg, :success
 
-  def initialize(project: nil, name: '', task_string: '')
-    @project = project
+  def initialize(name: '', task_string: '')
     @name = name
     @task_string = task_string
     @error_msg = nil
@@ -11,7 +10,7 @@ class CreateProjects < ApplicationController
   end
 
   def build
-    self.project = project ? project : Project.new(name: name)
+    self.project = Project.new(name: name)
     project.tasks = str_to_tasks(task_string)
     project
   end

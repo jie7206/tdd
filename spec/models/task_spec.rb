@@ -36,5 +36,10 @@ RSpec.describe '模型测试(Task)', type: :model do
     task.name = 'a'*($task_name_max_length+1)
     expect(task).to_not be_valid
   end
-  
+
+  specify '当任务的TDD步骤值等于最大值时视为该任务已完成' do
+    task.tdd_step = $tdd_steps_array.size
+    expect(task).to be_completed
+  end
+
 end

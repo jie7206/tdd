@@ -23,7 +23,7 @@ RSpec.describe "页面测试(projects/index)", type: :system do
   specify '任务列表旁的图示能按照TDD实际完成的进度显示' do
     task = create(:task, :tdd_step_eq_2)
     visit projects_path
-    expect(page).to have_selector '.pass_img', count: 2
+    expect(page).to have_selector '.pass_png', count: 2
   end
 
   specify '任务列表能按照TDD步骤的值由大到小排列' do
@@ -32,6 +32,11 @@ RSpec.describe "页面测试(projects/index)", type: :system do
     test_3 = create(:task, project: task.project, name:'MNOPQR', tdd_step: 3)
     visit projects_path
     expect(page).to have_content /MNOPQR(.)+GHIJKL(.)+ABCDEF/, count: 1
+  end
+
+  specify '首页能显示网站名称' do
+    visit root_path
+    expect(page).to have_content $site_name
   end
 
 end

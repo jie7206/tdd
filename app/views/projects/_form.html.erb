@@ -1,10 +1,12 @@
 <%= form_for(@project) do |f| %>
 <table>
   <tr>
-    <td>项目的名称：</td><td><%= f.text_field(:name, size: 51) %></td>
+    <td>项目的名称：</td>
+    <td><%= f.text_field(:name, size: 50) %></td>
   </tr>
   <tr>
-    <td valign="top">新任务名称：</td><td><%= text_area_tag("project[tasks]", '', size: '50x10') %></td>
+    <td valign="top">新任务名称：</td>
+    <td><%= text_area_tag("project[tasks]", '', size: '50x10') %></td>
   </tr>
   <tr>
     <td colspan="2" align="right">

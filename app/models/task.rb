@@ -1,20 +1,26 @@
 class Task < ApplicationRecord
 
-  $task_name_max_length = 30
-  $tdd_steps_array = ["写测试","过测试","解代码","去重复","建新类"]
-  validates :name, presence: true, length: { maximum: $task_name_max_length }
+  validates :name,
+    presence: true,
+    length: { maximum: $task_name_max_length }
+
   belongs_to :project
 
+  # TDD步骤值的最大值(即完成了所有的TDD步骤)
+  def max_tdd_step_value
+    $tdd_steps_array.size
+  end
+
   def completed?
-    completed_at.present?
+    self.tdd_step == max_tdd_step_value
   end
 
   def mark_as_completed
-    self.completed_at = Time.now
+    self.tdd_step = max_tdd_step_value
   end
 
-  def set_tdd_step(step_num)
-    self.tdd_step = step_num
+  def set_tdd_step(num)
+    self.tdd_step = num
   end
 
 end

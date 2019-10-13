@@ -47,9 +47,9 @@ RSpec.describe '系统测试(Tasks)', type: :system do
     specify '点击任务列表旁的图示能将任务TDD步骤设为相应的数字' do
       visit projects_path
       find("#task_#{task.id}_tdd_step_1").click
-      expect(page).to have_selector '.pass_img', count: 1
+      expect(page).to have_selector '.pass_png', count: 1
       find("#task_#{task.id}_tdd_step_2").click
-      expect(page).to have_selector '.pass_img', count: 2
+      expect(page).to have_selector '.pass_png', count: 2
     end
 
   end
