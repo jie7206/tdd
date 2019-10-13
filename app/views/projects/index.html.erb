@@ -18,13 +18,13 @@
       <% if project.tasks_count > 0 %>
         <% project_name_flag = false %>
         <% n =1 %>
-        <% project.tasks.order(tdd_step: :desc).each do |task| %>
+        <% project.uncomplete_tasks.order(is_top: :desc,tdd_step: :desc).each do |task| %>
           <tr valign="top">
             <% if !project_name_flag %>
               <td id="<%= dom_id(project) %>" class="name" valign="top" rowspan="<%= project.tasks_count %>"><%= link_to project.name, edit_project_path(project) %></td>
               <% project_name_flag = true %>
             <% end %>
-              <td id="<%= dom_id(project) %>_task_<%=n%>"><%= link_to task.name, edit_task_path(task) %></td>
+              <td id="<%= dom_id(project) %>_task_<%=n%>"><%= top_ico(task.is_top) %><%= link_to task.name, edit_task_path(task) %></td>
               <% (1..task.tdd_step).each do %>
                 <td align="center"><%= pass_png %></td>
               <% end %>

@@ -15,9 +15,14 @@ class Project < ApplicationRecord
     tasks.select(&:completed?)
   end
 
-  # 回传未完成的任务
+  # 回传未完成的任务阵列
   def incomplete_tasks
     tasks.reject(&:completed?)
+  end
+
+  # 回传未完成的任务数据集
+  def uncomplete_tasks
+    tasks.where("tdd_step < #{$tdd_steps_array.size}")
   end
 
   # 回传该项目的任务总数, 已完成的任务总数, 未完成的任务总数

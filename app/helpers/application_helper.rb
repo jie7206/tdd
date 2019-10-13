@@ -35,4 +35,8 @@ module ApplicationHelper
     return result
   end
 
+  def top_ico(is_top)
+    raw('<span class="top_ico">✪</span>') if is_top
+  end
+
 end

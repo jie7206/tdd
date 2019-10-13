@@ -5,12 +5,10 @@ RSpec.describe '系统测试(Tasks)', type: :system do
   describe "对任务进行编辑与删除操作" do
 
     let!(:task) { create(:task) }
-    let!(:task_completed) { create(:task, :is_completed) }
 
     specify '允许用户更新任务名称' do
       visit projects_path
       expect(page).to have_content task.name
-      expect(page).to have_content task_completed.name
       click_link task.name
       expect(current_path).to eq edit_task_path(task)
       expect(page).to have_selector '#task_name'
@@ -50,6 +48,21 @@ RSpec.describe '系统测试(Tasks)', type: :system do
       expect(page).to have_selector '.pass_png', count: 1
       find("#task_#{task.id}_tdd_step_2").click
       expect(page).to have_selector '.pass_png', count: 2
+    end
+
+    specify '能将任务标示为置顶任务' do
+      visit edit_task_path(task)
+      click_link '设为置顶任务'
+      expect(current_path).to eq projects_path
+      expect(page).to have_selector '.top_ico', count: 1
+    end
+
+    specify '能将置顶任务取消置顶' do
+      task = create(:task, :is_top)
+      visit edit_task_path(task)
+      click_link '取消置顶任务'
+      expect(current_path).to eq projects_path
+      expect(page).to have_selector '.top_ico', count: 0
     end
 
   end
