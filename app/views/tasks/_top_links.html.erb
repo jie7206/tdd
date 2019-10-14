@@ -1,0 +1,5 @@
+<% if @task.is_top %>
+  <%= link_to '取消置顶任务', action: :cancel_top_task, id: @task.id %>
+<% else %>
+  <%= link_to '设为置顶任务', action: :set_as_top_task, id: @task.id %>
+<% end %>

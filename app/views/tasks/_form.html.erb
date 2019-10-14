@@ -1,0 +1,14 @@
+<%= form_for(@task) do |f| %>
+<table>
+  <tr>
+    <td>任务名称：</td><td><%= f.text_field(:name, size: 70) %></td>
+  </tr>
+  <tr>
+    <td>TDD步骤：</td><td><%= f.select(:tdd_step, tdd_step_options) %></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="right">
+      <small>(<%= link_to "返回列表", projects_path %>)</small>
+      <%= f.submit("更新任务") %></td>
+  </tr>
+<% end %>

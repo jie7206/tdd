@@ -4,9 +4,10 @@ RSpec.describe '系统测试(Tasks)', type: :system do
 
   describe "对任务进行编辑与删除操作" do
 
-    let!(:task) { create(:task) }
+    let(:task) { create(:task) }
 
     specify '允许用户更新任务名称' do
+      task
       visit projects_path
       expect(page).to have_content task.name
       click_link task.name
@@ -19,6 +20,7 @@ RSpec.describe '系统测试(Tasks)', type: :system do
     end
 
     specify '允许用户删除某个任务' do
+      task
       visit projects_path
       expect(page).to have_link task.name
       click_link task.name
@@ -30,6 +32,7 @@ RSpec.describe '系统测试(Tasks)', type: :system do
     end
 
     specify '允许用户更新TDD步骤属性的值' do
+      task
       visit projects_path
       expect(page).to have_content task.name
       click_link task.name
@@ -43,6 +46,7 @@ RSpec.describe '系统测试(Tasks)', type: :system do
     end
 
     specify '点击任务列表旁的图示能将任务TDD步骤设为相应的数字' do
+      task
       visit projects_path
       find("#task_#{task.id}_tdd_step_1").click
       expect(page).to have_selector '.pass_png', count: 1
@@ -63,6 +67,22 @@ RSpec.describe '系统测试(Tasks)', type: :system do
       click_link '取消置顶任务'
       expect(current_path).to eq projects_path
       expect(page).to have_selector '.top_ico', count: 0
+    end
+
+    specify '当任务已完成时自动取消置顶' do
+      task = create(:task, :is_top)
+      visit projects_path
+      find("#task_#{task.id}_tdd_step_5").click
+      visit "/projects?id=#{task.project.id}&only_completed=1"
+      expect(page).to have_selector '.pass_png', count: 5
+      expect(page).to have_selector '.top_ico', count: 0
+    end
+
+    specify '任务名称超过最大长度时无法更新并显示错误讯息' do
+      visit edit_task_path(task)
+      fill_in 'task[name]', with: 'a'*($task_name_max_length+1)
+      click_on '更新任务'
+      expect(page).to have_selector '#error_explanation', text: $task_name_length_error_msg
     end
 
   end

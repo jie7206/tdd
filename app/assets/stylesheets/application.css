@@ -34,6 +34,10 @@ a { color: #000; text-decoration:none;}
 a:visited { color: #000;text-decoration:none; }
 a:hover { color: #fff;background-color:#00c;text-decoration:none; }
 
+small {
+  font-size: 0.7em;
+}
+
 #rails_logo img {
   height: 45px;
   border: 1px #999 solid;/* inset, outset */
@@ -67,5 +71,5 @@ a:hover { color: #fff;background-color:#00c;text-decoration:none; }
 .top_ico {
   color: #c00;
   font-size: 1.2em;
-  margin-right: 0.2em;
+  margin-right: 0.1em;
 }

@@ -1,7 +1,8 @@
 class ProjectsController < ApplicationController
 
+  # 提供id则显示某个项目，若无则显示所有项目
   def index
-    @projects = Project.all
+    @projects = params[:id] ? [Project.find(params[:id])] : Project.all
   end
 
   def new
@@ -37,7 +38,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
+    get_project_by_id
     if @project.destroy
       flash[:info] = "项目已删除成功！"
       go_project_index

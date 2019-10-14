@@ -60,4 +60,21 @@ RSpec.describe "页面测试(projects/index)", type: :system do
     expect(page).to have_content /HIJKLMN(.)+ABCDEFG/, count: 1
   end
 
+  specify '项目名称旁显示类似2/10的文字标明任务的完成进度' do
+    project = create(:project)
+    build_range_task(1..3, project, $max_tdd_step_value)
+    build_range_task(4..9, project)
+    visit projects_path
+    expect(page).to have_selector "#project_#{project.id}_progress", text: '3/9'
+  end
+
+  specify '点击项目名称旁(3/5)的3能显示该项目所有已完成的任务' do
+    project = create(:project)
+    build_range_task(1..3, project, $max_tdd_step_value)
+    build_range_task(4..5, project)
+    visit projects_path
+    find("#project_#{project.id}_completed_count").click
+    expect(page).to have_selector '.empty_png', count: 0
+  end
+
 end

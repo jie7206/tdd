@@ -1,9 +1,9 @@
 RSpec::Matchers.define :have_tasks do |expected|
 
   match do |actual|
-    case @incomplete
+    case @uncomplete
       when true
-        size_to_check = actual.incomplete_tasks_count
+        size_to_check = actual.uncomplete_tasks_count
       when false
         size_to_check = actual.completed_tasks_count
       else
@@ -17,9 +17,9 @@ RSpec::Matchers.define :have_tasks do |expected|
   end
 
   failure_message do |actual|
-    case @incomplete
+    case @uncomplete
       when true
-        failure_msg_build(actual.name, expected, '未完成', actual.incomplete_tasks_count)
+        failure_msg_build(actual.name, expected, '未完成', actual.uncomplete_tasks_count)
       when false
         failure_msg_build(actual.name, expected, '已完成', actual.completed_tasks_count)
       else
@@ -28,7 +28,7 @@ RSpec::Matchers.define :have_tasks do |expected|
   end
 
   failure_message_when_negated do |actual|
-    case @incomplete
+    case @uncomplete
       when true
         neg_failure_msg_build(actual.name, expected, '未完成')
       when false
@@ -38,12 +38,12 @@ RSpec::Matchers.define :have_tasks do |expected|
     end
   end
 
-  chain :only_incomplete do
-    @incomplete = true
+  chain :only_uncomplete do
+    @uncomplete = true
   end
 
   chain :only_completed do
-    @incomplete = false
+    @uncomplete = false
   end
 
   def failure_msg_build(name, expected, desc, count)

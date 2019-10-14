@@ -1,22 +1,5 @@
 <h2>编辑任务</h2>
+<%= render 'shared/error_messages', object: @task %>
 <%= link_to '删除此任务', @task, method: :delete, data: { confirm: "你确定要删除此任务吗?" } %> |
-<% if @task.is_top %>
-  <%= link_to '取消置顶任务', action: :cancel_top_task, id: @task.id %>
-<% else %>
-  <%= link_to '设为置顶任务', action: :set_as_top_task, id: @task.id %>
-<% end %>
-
-<%= form_for(@task) do |f| %>
-<table>
-  <tr>
-    <td>任务名称：</td><td><%= f.text_field(:name, size: 70) %></td>
-  </tr>
-  <tr>
-    <td>TDD步骤：</td><td><%= f.select(:tdd_step, tdd_step_options) %></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="right">
-      <small>(<%= link_to "返回列表", projects_path %>)</small>
-      <%= f.submit("更新任务") %></td>
-  </tr>
-<% end %>
+<%= render 'top_links' %>
+<%= render 'form' %>

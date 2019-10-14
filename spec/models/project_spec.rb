@@ -25,13 +25,14 @@ RSpec.describe '模型测试(Project)', type: :model do
     expect(project).to_not be_valid
   end
 
-  specify '若一个项目没有任何任务时视为已完成' do
-    expect(project).to be_done
+  specify '若一个项目没有任何任务时视为未完成' do
+    expect(project).to_not be_done
   end
 
   specify '只要有任何的任务未完成则该项目视为未完成' do
     project.tasks << task
-    expect(project).to_not be_done
+    project.save
+    expect(project.reload).to_not be_done
   end
 
   specify '只要所有的任务完成则该项目视为已完成' do
@@ -43,10 +44,11 @@ RSpec.describe '模型测试(Project)', type: :model do
   end
 
   specify '只要有任务未完成则该项目视为未完成' do
+    task.mark_as_completed
     project.tasks << task
     project.tasks << other_task
-    task.mark_as_completed
-    expect(project).to_not be_done
+    project.save
+    expect(project.reload).to_not be_done
   end
 
   specify '能正确回传所有任务的总数' do
@@ -61,14 +63,16 @@ RSpec.describe '模型测试(Project)', type: :model do
     project.tasks << task
     project.tasks << other_task
     project.tasks << other_task_ext1
-    expect(project).to have_tasks(1).only_completed
+    project.save
+    expect(project.reload).to have_tasks(1).only_completed
   end
 
   specify '能正确回传未完成任务的总数' do
     task.mark_as_completed
     project.tasks << task
     project.tasks << other_task
-    expect(project).to have_tasks(1).only_incomplete
+    project.save
+    expect(project.reload).to have_tasks(1).only_uncomplete
   end
 
 end

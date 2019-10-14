@@ -6,27 +6,28 @@ class Project < ApplicationRecord
 
   has_many :tasks, dependent: :destroy
 
+  # 该项目是否已完成
   def done?
-    tasks ? incomplete_tasks.empty? : true
+    tasks_count > 0 ? (uncomplete_tasks.empty? ? true : false) : false
   end
 
-  # 回传已完成的任务
+  # 回传已完成的任务数据集
   def completed_tasks
-    tasks.select(&:completed?)
-  end
-
-  # 回传未完成的任务阵列
-  def incomplete_tasks
-    tasks.reject(&:completed?)
+    select_with "tdd_step == #{$max_tdd_step_value}"
   end
 
   # 回传未完成的任务数据集
   def uncomplete_tasks
-    tasks.where("tdd_step < #{$tdd_steps_array.size}")
+    select_with "tdd_step < #{$max_tdd_step_value}"
+  end
+
+  # 取出依照条件筛选的数据集
+  def select_with(str)
+    tasks.where(str)
   end
 
   # 回传该项目的任务总数, 已完成的任务总数, 未完成的任务总数
-  ["tasks","completed_tasks","incomplete_tasks"].each do |scope|
+  ["tasks","completed_tasks","uncomplete_tasks"].each do |scope|
     define_method "#{scope}_count" do
       eval "#{scope}.size"
     end

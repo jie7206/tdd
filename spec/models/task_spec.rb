@@ -20,14 +20,9 @@ RSpec.describe '模型测试(Task)', type: :model do
     expect(task).to_not be_completed
   end
 
-  specify '可将任务设定为已完成的任务' do
-    task.mark_as_completed
-    expect(task).to be_completed
-  end
-
   specify '可设定任务已完成到TDD的哪一步骤' do
-    task.set_tdd_step(3)
-    expect(task.tdd_step).to eq 3
+    task.set_tdd_step 3
+    expect(task.reload.tdd_step).to eq 3
   end
 
   specify '任务名称不能超过模型设定的最大长度' do
@@ -38,8 +33,14 @@ RSpec.describe '模型测试(Task)', type: :model do
   end
 
   specify '当任务的TDD步骤值等于最大值时视为该任务已完成' do
-    task.tdd_step = $tdd_steps_array.size
-    expect(task).to be_completed
+    task.set_tdd_step $tdd_steps_array.size
+    expect(task.reload).to be_completed
+  end
+
+  specify '当任务的TDD步骤值等于最大值时自动取消置顶' do
+    task = create(:task, :is_top)
+    task.set_tdd_step $tdd_steps_array.size
+    expect(task.reload).to_not be_a_top_task
   end
 
 end
