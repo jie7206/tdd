@@ -1,5 +1,5 @@
-<h2>编辑任务</h2>
 <%= render 'shared/error_messages', object: @task %>
+<h2>编辑任务</h2>
 <%= link_to '删除此任务', @task, method: :delete, data: { confirm: "你确定要删除此任务吗?" } %> |
-<%= render 'top_links' %>
+<%= render 'set_top_links' %>
 <%= render 'form' %>

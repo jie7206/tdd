@@ -19,7 +19,7 @@
       <% tasks = get_tasks(project) %>
       <% if tasks.size > 0 %>
         <% #有任务可显示的项目 %>
-        <% tasks.order(is_top: :desc,tdd_step: :desc).each do |task| %>
+        <% tasks.each do |task| %>
           <tr valign="top">
             <% if !project_name_flag %>
               <td id="<%= dom_id(project) %>" class="name" valign="top" rowspan="<%= rowspan_num(project) %>">

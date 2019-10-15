@@ -6,7 +6,8 @@
   </tr>
   <tr>
     <td valign="top">新任务名称：</td>
-    <td><%= text_area_tag("project[tasks]", '', size: '50x10') %></td>
+    <% content = params[:project] ? params[:project][:tasks] : '' %>
+    <td><%= text_area_tag("project[tasks]", content, size: '50x10') %></td>
   </tr>
   <tr>
     <td colspan="2" align="right">

@@ -34,6 +34,32 @@ RSpec.describe '系统测试(Projects)', type: :system do
       expect(page).to have_content $project_name_blank_error_msg
     end
 
+    specify '新增项目时任务名称超过最大长度时无法新建并显示错误讯息' do
+      visit new_project_path
+      fill_in 'project[name]', with: '正常项目名称'
+      fill_in 'project[tasks]', with: 'a'*($task_name_max_length+1)
+      click_on '新增项目'
+      expect(page).to have_content $task_name_length_error_msg
+    end
+
+    specify '新增项目时若无项目名称和任务过长会显示两个错误讯息' do
+      visit new_project_path
+      fill_in 'project[name]', with: ''
+      fill_in 'project[tasks]', with: 'a'*($task_name_max_length+1)
+      click_on '新增项目'
+      expect(page).to have_content $project_name_blank_error_msg
+      expect(page).to have_content $task_name_length_error_msg
+    end
+
+    specify '新建项目时若无项目名称则不能新建任务' do
+      visit new_project_path
+      fill_in 'project[name]', with: ''
+      fill_in 'project[tasks]', with: '新任务名称'
+      click_on '新增项目'
+      expect(page).to have_content $project_name_blank_error_msg
+      expect(page).to_not have_selector '.alert-info'
+    end
+
   end
 
   describe "对项目进行编辑与删除操作" do
@@ -50,6 +76,13 @@ RSpec.describe '系统测试(Projects)', type: :system do
       click_on '更新项目'
       expect(current_path).to eq projects_path
       expect(page).to have_content '新项目名称YA！'
+    end
+
+    specify '更新项目时若无项目名称则显示失败' do
+      visit edit_project_path(project)
+      fill_in 'project[name]', with: ''
+      click_on '更新项目'
+      expect(page).to have_content $project_name_blank_error_msg
     end
 
     specify '允许用户删除某个项目' do
@@ -71,7 +104,32 @@ RSpec.describe '系统测试(Projects)', type: :system do
       expect(page).to have_content '新任务1'
       expect(page).to have_content '新任务2'
       expect(page).to have_content project.name, count: 1
-      expect(page).to have_selector ".alert-info"
+      expect(page).to have_selector '.alert-info'
+    end
+
+    specify '任务名称超过最大长度时无法新建并显示错误讯息' do
+      visit edit_project_path(project)
+      fill_in 'project[tasks]', with: 'a'*($task_name_max_length+1)
+      click_on '更新项目'
+      expect(page).to have_content $task_name_length_error_msg
+    end
+
+    specify '编辑项目时若无项目名称和任务过长会显示两个错误讯息' do
+      visit edit_project_path(project)
+      fill_in 'project[name]', with: ''
+      fill_in 'project[tasks]', with: 'a'*($task_name_max_length+1)
+      click_on '更新项目'
+      expect(page).to have_content $project_name_blank_error_msg
+      expect(page).to have_content $task_name_length_error_msg
+    end
+
+    specify '编辑项目时若无项目名称则不能新建任务' do
+      visit edit_project_path(project)
+      fill_in 'project[name]', with: ''
+      fill_in 'project[tasks]', with: '新任务名称'
+      click_on '更新项目'
+      expect(page).to have_content $project_name_blank_error_msg
+      expect(page).to_not have_selector '.alert-info'
     end
 
   end

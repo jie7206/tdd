@@ -1,3 +1,4 @@
+<%= render 'shared/error_messages', object: @project %>
 <h2>编辑项目</h2>
 <%= render 'form', submit_label: '更新项目' %><p/>
 <%= link_to '删除此项目', @project, method: :delete, data: { confirm: "你确定要删除此项目吗?" } %>

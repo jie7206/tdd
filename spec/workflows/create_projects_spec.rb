@@ -19,7 +19,7 @@ RSpec.describe '系统测试(CreateProjects)' do
       creator.create
     }
     specify '错误提示文字符合预期' do
-      expect(creator.error_msg).to eq $project_name_blank_error_msg
+      expect(creator.error_msg).to include $project_name_blank_error_msg
     end
     specify '确认无法创建名称为空白的项目' do
       expect(creator).to_not be_success

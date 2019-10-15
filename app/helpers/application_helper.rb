@@ -14,7 +14,7 @@ module ApplicationHelper
   # 显示项目名称与链接
   def show_project_name(project)
     raw(link_to(project.name, edit_project_path(project)))+
-     raw(" <small>(#{project_progress_text(project)})</small>")
+     raw(" <small>#{project_progress_text(project)}</small>")
   end
 
   # 建立显示TDD步骤的图示
@@ -37,21 +37,22 @@ module ApplicationHelper
     $tdd_steps_array
   end
 
-  # 建立供form#select的选项
+  # 建立供TDD步骤的form#select选项使用
   def tdd_step_options
-    result = [['0.没开始',0]]
-    (1..tdd_steps.size).each {|n| result << ["#{n}.#{tdd_steps[n-1]}",n] }
-    return result
+    options = [['0.没开始',0]]
+    (1..tdd_steps.size).each {|n| options << ["#{n}.#{tdd_steps[n-1]}",n] }
+    return options
   end
 
   # 显示置顶任务图示
-  def top_ico(is_top)
-    raw('<span class="top_ico">✪</span>') if is_top
+  def top_ico(show)
+    raw('<span class="top_ico">✪</span>') if show
   end
 
   # 项目名称旁显示类似2/10的文字标明任务的完成进度
   def project_progress_text(project)
-    raw("<span id='project_#{project.id}_progress'>#{completed_task_link(project)}/#{project.tasks_count}</span>")
+    raw("<span id='project_#{project.id}_progress'>
+      (#{completed_task_link(project)}/#{project.tasks_count})</span>")
   end
 
   # 点击后只显示该项目已完成的所有任务
@@ -63,7 +64,9 @@ module ApplicationHelper
 
   # 切换显示已完成任务与未完成任务的数据集
   def get_tasks(project)
-    params[:id] ? project.completed_tasks : project.uncomplete_tasks
+    params[:id] ?
+      project.completed_tasks.order(updated_at: :desc) :
+      project.uncomplete_tasks.order(is_top: :desc,tdd_step: :desc)
   end
 
   # 供切换显示已完成任务与未完成任务的表格对齐使用
