@@ -13,9 +13,7 @@ class CreateProjects < ApplicationController
   # 建立并回传项目物件
   def build
     self.project = Project.new(name: name)
-    if !project.valid?
-      @project_name_errors = project.errors.messages[:name].join(",")
-    end
+    if !project.valid? then @project_name_errors = project.errors.messages[:name].join(",") end
     new_tasks = str_to_tasks(task_string)
     if new_tasks
       project.tasks = new_tasks

@@ -47,6 +47,9 @@ small {
   color: #900;
   text-decoration:none;
 }
+#login_form {
+  margin-top: 1em;
+}
 #project_list_table {
   width: 98%;
   margin-top: -0.3em;

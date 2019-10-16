@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe '系统测试(Tasks)', type: :system do
 
+  before do
+    visit login_path
+    fill_in 'pincode', with: $pincode
+    click_on '登入'
+  end
+
   describe "对任务进行编辑与删除操作" do
 
     let(:task) { create(:task) }

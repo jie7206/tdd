@@ -1,0 +1,4 @@
+<%= form_tag '/login', method: :get, id: 'login_form' do %>
+  <label>请输入PIN码：</label><%= password_field_tag :pincode %>
+  <%= submit_tag '登入' %>
+<% end %>

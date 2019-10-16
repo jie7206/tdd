@@ -3,7 +3,13 @@ require 'rails_helper'
 RSpec.describe "页面测试(tasks/edit)", type: :system do
 
   let(:task) { create(:task) }
-  before { visit edit_task_path(task) }
+
+  before do
+    visit login_path
+    fill_in 'pincode', with: $pincode
+    click_on '登入'
+    visit edit_task_path(task)
+  end
 
   specify '编辑任务的页面能显示名称编辑属性' do
     expect(page).to have_selector 'input', id: 'task_name'

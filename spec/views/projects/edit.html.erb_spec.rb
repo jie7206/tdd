@@ -3,7 +3,13 @@ require 'rails_helper'
 RSpec.describe "页面测试(projects/edit)", type: :system do
 
   let(:project) { create(:project) }
-  before { visit edit_project_path(project) }
+
+  before do
+    visit login_path
+    fill_in 'pincode', with: $pincode
+    click_on '登入'
+    visit edit_project_path(project)
+  end
 
   specify '编辑项目的页面能显示名称编辑属性' do
     expect(page).to have_selector 'input', id: 'project_name'

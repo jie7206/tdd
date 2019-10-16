@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
 
-  # all global variables
   $site_name = '仕杰的TDD开发管理系统'
   $project_name_max_length = 30
   $project_name_blank_error_msg = '项目必须提供名称才能储存'
@@ -9,13 +8,33 @@ class ApplicationController < ActionController::Base
   $task_name_length_error_msg = "任务名称的长度不能超过#{$task_name_max_length}个字元"
   $tdd_steps_array = ["写测试","过测试","去重复","删过时","能好读"]
   $max_tdd_step_value = $tdd_steps_array.size
+  $login_error_message = 'PIN码输入错误！'
 
-  # redirect_to 'projects#index'
+  include ApplicationHelper
+  before_action :check_login, except: [ :login ]
+
+  # 初始化设置
+  def initialize
+    super
+    load_global_variables
+  end
+
+  # 读入网站所有的全局参数设定
+  def load_global_variables
+    eval(File.open("#{Rails.root}/config/global_variables.txt",'r').read)
+  end
+
+  # 所有页面需要输入PIN码登入之后才能使用
+  def check_login
+    redirect_to login_path if !login?
+  end
+
+  # 转到项目首页
   def go_projects_index
     redirect_to projects_path
   end
 
-  # for Project model to create tasks
+  # 将字符串转换成任务物件
   def str_to_tasks(text)
     text.split("\n").map do |task_name|
       # 任务名称超过最大长度时无法新建并显示错误讯息

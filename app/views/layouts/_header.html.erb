@@ -3,3 +3,11 @@
     <h2><%= site_logo %><%= site_name %></h2>
   </a>
 </span>
+<% if login? %>
+  <nav>
+    <small>
+      <%= link_to '新增项目', new_project_path %> |
+      <%= link_to '登出系统', logout_path %>
+    </small>
+  </nav>
+<% end %>

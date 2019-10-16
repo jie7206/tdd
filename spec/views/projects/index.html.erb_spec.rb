@@ -4,6 +4,12 @@ RSpec.describe "页面测试(projects/index)", type: :system do
 
   let!(:task) { create(:task) }
 
+  before do
+    visit login_path
+    fill_in 'pincode', with: $pincode
+    click_on '登入'
+  end
+
   specify '项目列表的页面中应该有新增项目的链接' do
     visit projects_path
     expect(page).to have_link href: new_project_path

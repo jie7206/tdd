@@ -74,4 +74,9 @@ module ApplicationHelper
     params[:id] ? project.completed_tasks_count : project.uncomplete_tasks_count
   end
 
+  # 判断是否已登入
+  def login?
+    session[:login] == true
+  end
+
 end
