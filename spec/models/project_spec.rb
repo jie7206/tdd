@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe '模型测试(Project)', type: :model do
 
-  let(:project) { Project.new name: '测试用项目名称' }
-  let(:task) { Task.new name: '测试用任务名称1' }
-  let(:other_task) { Task.new name: '测试用任务名称2' }
-  let(:other_task_ext1) { Task.new name: '测试用任务名称3' }
+  let(:project) { create(:project, name: '测试用项目名称') }
+  let(:task1) { create(:task, name: '测试用任务名称1') }
+  let(:task2) { create(:task, name: '测试用任务名称2') }
+  let(:task3) { create(:task, name: '测试用任务名称3') }
 
   specify '项目必须要有名称才能成功创建' do
     project.name = nil
@@ -30,49 +30,45 @@ RSpec.describe '模型测试(Project)', type: :model do
   end
 
   specify '只要有任何的任务未完成则该项目视为未完成' do
-    project.tasks << task
-    project.save
-    expect(project.reload).to_not be_done
+    project.tasks << task1
+    expect(project).to_not be_done
   end
 
   specify '只要所有的任务完成则该项目视为已完成' do
-    project.tasks << task
-    project.tasks << other_task
-    task.mark_as_completed
-    other_task.mark_as_completed
+    task1.mark_as_completed
+    task2.mark_as_completed
+    project.tasks << task1
+    project.tasks << task2
     expect(project).to be_done
   end
 
   specify '只要有任务未完成则该项目视为未完成' do
-    task.mark_as_completed
-    project.tasks << task
-    project.tasks << other_task
-    project.save
-    expect(project.reload).to_not be_done
+    task1.mark_as_completed
+    project.tasks << task1
+    project.tasks << task2
+    expect(project).to_not be_done
   end
 
   specify '能正确回传所有任务的总数' do
-    project.tasks << task
-    project.tasks << other_task
-    project.tasks << other_task_ext1
+    project.tasks << task1
+    project.tasks << task2
+    project.tasks << task3
     expect(project).to have_tasks 3
   end
 
   specify '能正确回传已完成任务的总数' do
-    task.mark_as_completed
-    project.tasks << task
-    project.tasks << other_task
-    project.tasks << other_task_ext1
-    project.save
-    expect(project.reload).to have_tasks(1).only_completed
+    task1.mark_as_completed
+    project.tasks << task1
+    project.tasks << task2
+    project.tasks << task3
+    expect(project).to have_tasks(1).only_completed
   end
 
   specify '能正确回传未完成任务的总数' do
-    task.mark_as_completed
-    project.tasks << task
-    project.tasks << other_task
-    project.save
-    expect(project.reload).to have_tasks(1).only_uncomplete
+    task1.mark_as_completed
+    project.tasks << task1
+    project.tasks << task2
+    expect(project).to have_tasks(1).only_uncomplete
   end
 
 end

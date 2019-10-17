@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe '模型测试(Task)', type: :model do
 
-  let(:project) { Project.new name: '测试用项目名称' }
-  let(:task) { Task.new name: '测试用任务名称', project: project }
+  let(:project) { create(:project, name: '测试用项目名称') }
+  let(:task) { create(:task, name: '测试用任务名称', project: project) }
 
   specify '任务必须要有名称才能成功创建' do
     task.name = nil
