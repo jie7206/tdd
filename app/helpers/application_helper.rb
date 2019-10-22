@@ -65,7 +65,7 @@ module ApplicationHelper
   # 切换显示已完成任务与未完成任务的数据集
   def get_tasks(project)
     params[:id] ?
-      project.completed_tasks.order(updated_at: :desc) :
+      project.completed_tasks.order(id: :desc) :
       project.uncomplete_tasks.order(is_top: :desc,tdd_step: :desc)
   end
 

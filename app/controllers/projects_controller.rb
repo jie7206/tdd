@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
 
   # 提供id显示特定项目，若无则显示所有项目
   def index
-    @projects = params[:id] ? [Project.find(params[:id])] : Project.all
+    @projects = params[:id] ? [Project.find(params[:id])] : Project.all.order('id desc')
   end
 
   # 新增项目

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   $project_name_max_length = 30
   $project_name_blank_error_msg = '项目必须提供名称才能储存'
   $project_name_length_error_msg = "项目名称的长度不能超过#{$project_name_max_length}个字元"
-  $task_name_max_length = 30
+  $task_name_max_length = 40
   $task_name_length_error_msg = "任务名称的长度不能超过#{$task_name_max_length}个字元"
   $tdd_steps_array = ["写测试","过测试","去重复","删过时","能好读"]
   $max_tdd_step_value = $tdd_steps_array.size

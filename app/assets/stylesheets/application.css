@@ -60,6 +60,7 @@ small {
   color: white;
   font-weight: bold;
   padding: 0.2em;
+  margin-top: 1em;
 }
 .alert-warning, #error_explanation {
   background-color: #900;
