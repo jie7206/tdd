@@ -78,9 +78,9 @@ RSpec.describe '系统测试(Tasks)', type: :system do
     specify '当任务已完成时自动取消置顶' do
       task = create(:task, :is_top)
       visit projects_path
-      find("#task_#{task.id}_tdd_step_5").click
+      find("#task_#{task.id}_tdd_step_#{$max_tdd_step_value}").click
       visit "/projects?id=#{task.project.id}&only_completed=1"
-      expect(page).to have_selector '.pass_png', count: 5
+      expect(page).to have_selector '.pass_png', count: $max_tdd_step_value
       expect(page).to have_selector '.top_ico', count: 0
     end
 
