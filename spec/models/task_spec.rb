@@ -33,15 +33,19 @@ RSpec.describe '模型测试(Task)', type: :model do
   end
 
   specify '当任务的TDD步骤值等于最大值时视为该任务已完成' do
-    task.set_tdd_step $tdd_steps_array.size
-    expect(task.reload.completed_at).to_not be_nil
-    expect(task).to be_completed
+    task.set_tdd_step $max_tdd_step_value
+    expect(task.reload).to be_completed
   end
 
   specify '当任务的TDD步骤值等于最大值时自动取消置顶' do
     task = create(:task, :is_top)
     task.set_tdd_step $tdd_steps_array.size
     expect(task.reload).to_not be_a_top_task
+  end
+
+  specify 'TDD步骤完成时会记录完成时间' do
+    task.set_tdd_step $max_tdd_step_value
+    expect(task.reload.completed_at).to_not be_nil
   end
 
 end

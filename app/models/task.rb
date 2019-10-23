@@ -8,7 +8,7 @@ class Task < ApplicationRecord
 
   # 判断该任务是否已完成
   def completed?
-    self.tdd_step == $max_tdd_step_value
+    !!completed_at
   end
 
   # 判断该任务是否为置顶任务
@@ -19,12 +19,16 @@ class Task < ApplicationRecord
   # 将该任务设置为已完成
   def mark_as_completed
     self.tdd_step = $max_tdd_step_value
+    self.completed_at = Time.now
   end
 
   # 设置该任务的TDD步骤属性值
   def set_tdd_step(num)
     self.tdd_step = num
-    self.is_top = false if num == $max_tdd_step_value
+    if num == $max_tdd_step_value
+      mark_as_completed
+      self.is_top = false
+    end
     self.save
   end
 
