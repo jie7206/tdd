@@ -48,4 +48,9 @@ RSpec.describe '模型测试(Task)', type: :model do
     expect(task.reload.completed_at).to_not be_nil
   end
 
+  specify '当任务有完成时间则视为任务已完成' do
+    task = create(:task, completed_at: Time.now)
+    expect(task).to be_completed
+  end
+
 end
