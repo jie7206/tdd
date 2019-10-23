@@ -51,6 +51,14 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # 所有任务设为已完成
+  def set_all_tasks_completed
+    get_project_by_id
+    @project.tasks.each {|t| t.mark_as_completed}
+    flash[:info] = "项目所有的任务已设置为完成！"
+    go_projects_index
+  end
+
   private
 
     # 供安全更新使用
