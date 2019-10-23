@@ -79,4 +79,14 @@ module ApplicationHelper
     session[:login] == true
   end
 
+  # 任务列表显示时每个任务的dom_id
+  def task_dom_id( project, task )
+    "#{dom_id(project)}_task_#{task.id}"
+  end
+
+  # 显示复制任务名称图示
+  def copy_name_icon( project, task )
+    raw link_to image_tag('doc.png',align:'absmiddle'), '#', { onclick: "copyText('#{task_dom_id(project,task)}');" }
+  end
+
 end

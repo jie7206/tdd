@@ -27,9 +27,11 @@
               <% project_name_flag = true %>
             <% end %>
             <% #显示任务名称 %>
-              <td id="<%= dom_id(project) %>_task_<%=task.id%>">
+              <td>
                 <%= top_ico(task.is_top) %>
-                <%= link_to task.name, edit_task_path(task) %></td>
+                <%= link_to task.name, edit_task_path(task),
+                    { id: "#{task_dom_id(project,task)}"} %>
+                    <%= copy_name_icon(project,task) %></td>
             <% #显示已完成步骤图示 %>
             <% (1..task.tdd_step).each do %>
               <td align="center"><%= pass_png %></td>
@@ -53,3 +55,4 @@
     <% end %>
   </tbody>
 </table>
+<textarea id="copy_temp"></textarea>
