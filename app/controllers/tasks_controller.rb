@@ -50,7 +50,7 @@ class TasksController < ApplicationController
 
     # 供安全更新使用
     def task_params
-      params.require(:task).permit(:name, :tdd_step)
+      params.require(:task).permit(:name, :tdd_step, :note)
     end
 
     # 读取特定任务

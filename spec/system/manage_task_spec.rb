@@ -91,6 +91,15 @@ RSpec.describe '系统测试(Tasks)', type: :system do
       expect(page).to have_selector '#error_explanation', text: $task_name_length_error_msg
     end
 
+    specify '#148[模型层]任务增加备注属性以便输入实作的灵感' do
+      visit edit_task_path(task)
+      fill_in 'task[note]', with: 'lin'*10
+      click_on '更新任务'
+      expect(page).to have_selector ".alert-info"
+      visit edit_task_path(task)
+      expect(page.html).to include 'lin'*10
+    end
+
   end
 
 end
