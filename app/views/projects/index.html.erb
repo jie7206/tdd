@@ -33,7 +33,10 @@
                     { id: "#{task_dom_id(project,task)}", class: 'task_name'} %>
                     <%= copy_name_icon(project,task) %></td>
             <% #显示已完成步骤图示 %>
-            <% (1..task.tdd_step).each do %>
+            <% task_tdd_step = \
+                task.tdd_step > $max_tdd_step_value ? \
+                $max_tdd_step_value : task.tdd_step %>
+            <% (1..task_tdd_step).each do %>
               <td align="center"><%= pass_png %></td>
             <% end %>
             <% #显示未完成步骤图示与链接 %>

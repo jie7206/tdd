@@ -13,7 +13,7 @@ class Project < ApplicationRecord
 
   # 回传已完成的任务数据集
   def completed_tasks
-    select_with "tdd_step == #{$max_tdd_step_value}"
+    select_with "tdd_step >= #{$max_tdd_step_value}"
   end
 
   # 回传未完成的任务数据集
@@ -27,7 +27,7 @@ class Project < ApplicationRecord
   end
 
   # 回传该项目的任务总数, 已完成的任务总数, 未完成的任务总数
-  ["tasks","completed_tasks","uncomplete_tasks"].each do |scope|
+  %w(tasks completed_tasks uncomplete_tasks).each do |scope|
     define_method "#{scope}_count" do
       eval "#{scope}.size"
     end
