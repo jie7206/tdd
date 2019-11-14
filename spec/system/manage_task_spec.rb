@@ -10,10 +10,9 @@ RSpec.describe '系统测试(Tasks)', type: :system do
 
   describe "对任务进行编辑与删除操作" do
 
-    let(:task) { create(:task) }
+    let!(:task) { create(:task) }
 
     specify '允许用户更新任务名称' do
-      task
       visit projects_path
       expect(page).to have_content task.name
       click_link task.name
@@ -26,7 +25,6 @@ RSpec.describe '系统测试(Tasks)', type: :system do
     end
 
     specify '允许用户删除某个任务' do
-      task
       visit projects_path
       expect(page).to have_link task.name
       click_link task.name
@@ -38,7 +36,6 @@ RSpec.describe '系统测试(Tasks)', type: :system do
     end
 
     specify '允许用户更新TDD步骤属性的值' do
-      task
       visit projects_path
       expect(page).to have_content task.name
       click_link task.name
@@ -52,7 +49,6 @@ RSpec.describe '系统测试(Tasks)', type: :system do
     end
 
     specify '点击任务列表旁的图示能将任务TDD步骤设为相应的数字' do
-      task
       visit projects_path
       find("#task_#{task.id}_tdd_step_1").click
       expect(page).to have_selector '.pass_png', count: 1
@@ -98,6 +94,26 @@ RSpec.describe '系统测试(Tasks)', type: :system do
       expect(page).to have_selector ".alert-info"
       visit edit_task_path(task)
       expect(page.html).to include 'lin'*10
+    end
+
+    specify '#171[系统层]点击任务名称旁的向上箭头能将名称向上移动但ID不变' do
+      project = task.project
+      task_name = task.name
+      task2 = create(:task,project: project,name: 'TEST_ME')
+      task3 = create(:task,project: project)
+      visit projects_path
+      find("#name_up_from_#{task2.id}").click
+      expect(page).to have_content /TEST_ME(.)+#{task_name}(.)+#{task_name}/, count: 1
+    end
+
+    specify '#171[系统层]点击任务名称旁的向下箭头能将名称向下移动但ID不变' do
+      project = task.project
+      task_name = task.name
+      task2 = create(:task,project: project,name: 'TEST_ME')
+      task3 = create(:task,project: project)
+      visit projects_path
+      find("#name_down_from_#{task2.id}").click
+      expect(page).to have_content /#{task_name}(.)+#{task_name}(.)+TEST_ME(.)/, count: 1
     end
 
   end

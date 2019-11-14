@@ -31,7 +31,9 @@
                 <%= top_ico(task.is_top) %>
                 <%= link_to task.name, edit_task_path(task),
                     { id: "#{task_dom_id(project,task)}", class: 'task_name'} %>
-                    <%= copy_name_icon(project,task) %></td>
+                <%= copy_name_icon(project,task) %>
+                <%= link_up_and_down(task) %>
+              </td>
             <% #显示已完成步骤图示 %>
             <% task_tdd_step = \
                 task.tdd_step > $max_tdd_step_value ? \

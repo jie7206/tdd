@@ -2,7 +2,7 @@ FactoryBot.define do
 
   factory :task do
 
-    name { "建立项目模型(未完成)" }
+    name { "BuildProjectModel_uncomplete" }
     tdd_step { 0 }
     is_top { false }
     association :project
@@ -12,7 +12,7 @@ FactoryBot.define do
     end
 
     trait :is_completed do
-      name { "建立项目模型(已完成)" }
+      name { "BuildProjectModel_completed" }
       tdd_step { $tdd_steps_array.size }
     end
 

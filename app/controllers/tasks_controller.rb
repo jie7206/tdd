@@ -1,13 +1,13 @@
 class TasksController < ApplicationController
 
+  before_action :get_task_by_id, except: [:set_as_top_task, :cancel_top_task]
+
   # 编辑任务
   def edit
-    get_task_by_id
   end
 
   # 更新任务
   def update
-    get_task_by_id
     if @task.update_attributes(task_params)
       flash[:info] = "任务已更新成功！"
       go_projects_index
@@ -18,7 +18,6 @@ class TasksController < ApplicationController
 
   # 更新TDD步骤的值
   def update_tdd_step
-    get_task_by_id
     new_step_num = params[:new_step_num].to_i
     if (1..$max_tdd_step_value).include? new_step_num
       @task.set_tdd_step new_step_num
@@ -39,11 +38,32 @@ class TasksController < ApplicationController
 
   # 删除任务
   def destroy
-    get_task_by_id
     if @task.destroy
       flash[:info] = "任务已删除成功！"
       go_projects_index
     end
+  end
+
+  def name_up
+    ids = Task.all.map {|t| t.id}
+    id = @task.id
+    name = @task.name
+    pre_id = (id == ids[0]) ? id : ids[ids.index(id)-1]
+    pre_task = Task.find(pre_id)
+    @task.update_attribute(:name, pre_task.name)
+    pre_task.update_attribute(:name, name)
+    go_projects_index
+  end
+
+  def name_down
+    ids = Task.all.map {|t| t.id}
+    id = @task.id
+    name = @task.name
+    next_id = (id == ids[-1]) ? id : ids[ids.index(id)+1]
+    next_task = Task.find(next_id)
+    @task.update_attribute(:name, next_task.name)
+    next_task.update_attribute(:name, name)
+    go_projects_index
   end
 
   private

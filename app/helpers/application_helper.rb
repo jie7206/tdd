@@ -89,4 +89,11 @@ module ApplicationHelper
     raw link_to image_tag('doc.png',align:'absmiddle'), '#', { onclick: "copyText('#{task_dom_id(project,task)}');" }
   end
 
+  # 建立排序上下箭头链接
+  def link_up_and_down( obj )
+    controller = obj.class.name.downcase.pluralize
+    raw(link_to('↑', name_up_task_path(obj), id: "name_up_from_#{obj.id}")+' '+\
+        link_to('↓', name_down_task_path(obj), id: "name_down_from_#{obj.id}"))
+  end
+
 end
