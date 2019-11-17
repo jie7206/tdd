@@ -45,7 +45,7 @@ class TasksController < ApplicationController
   end
 
   def name_up
-    ids = Task.all.map {|t| t.id}
+    ids = Task.where(["project_id = ?",@task.project.id]).all.map {|t| t.id}
     id = @task.id
     name = @task.name
     pre_id = (id == ids[0]) ? id : ids[ids.index(id)-1]
@@ -56,7 +56,7 @@ class TasksController < ApplicationController
   end
 
   def name_down
-    ids = Task.all.map {|t| t.id}
+    ids = Task.where(["project_id = ?",@task.project.id]).all.map {|t| t.id}
     id = @task.id
     name = @task.name
     next_id = (id == ids[-1]) ? id : ids[ids.index(id)+1]
