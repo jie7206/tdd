@@ -31,7 +31,7 @@
                 <%= top_ico(task.is_top) %>
                 <%= link_to task.name, edit_task_path(task),
                     { id: "#{task_dom_id(project,task)}", class: 'task_name'} %>
-                <%= copy_name_icon(project,task) %>
+                <%= copy_name_icon(project,task,task.note) %>
                 <%= link_up_and_down(task) %>
               </td>
             <% #显示已完成步骤图示 %>

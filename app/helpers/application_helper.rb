@@ -85,8 +85,8 @@ module ApplicationHelper
   end
 
   # 显示复制任务名称图示
-  def copy_name_icon( project, task )
-    raw link_to image_tag('doc.png',align:'absmiddle'), '#', { onclick: "copyText('#{task_dom_id(project,task)}');" }
+  def copy_name_icon( project, task, note )
+    raw link_to image_tag('doc.png',align:'absmiddle'), '#', { onclick: "copyText('#{task_dom_id(project,task)}');", title: "#{note}" }
   end
 
   # 建立排序上下箭头链接
