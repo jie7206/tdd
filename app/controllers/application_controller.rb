@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
 
   $site_name = '仕杰的TDD开发管理系统'
-  $project_name_max_length = 30
+  $project_name_max_length = 50
   $project_name_blank_error_msg = '项目必须提供名称才能储存'
   $project_name_length_error_msg = "项目名称的长度不能超过#{$project_name_max_length}个字元"
-  $task_name_max_length = 40
+  $task_name_max_length = 80
   $task_name_length_error_msg = "任务名称的长度不能超过#{$task_name_max_length}个字元"
   $tdd_steps_array = ["写测试","过测试","去重复","能好读","传Hub"]
   $max_tdd_step_value = $tdd_steps_array.size
