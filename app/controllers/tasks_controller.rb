@@ -44,6 +44,13 @@ class TasksController < ApplicationController
     end
   end
 
+  # 将任务设置为未完成的任务
+  def set_as_uncomplete_task
+    Task.find(params[:id]).update_attributes(completed_at: nil, tdd_step: 1)
+    flash[:info] = "任务已设为未完成的任务！"
+    go_projects_index
+  end
+
   def name_up
     ids = Task.where(["project_id = ?",@task.project.id]).all.map {|t| t.id}
     id = @task.id

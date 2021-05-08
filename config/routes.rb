@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   end
   get '/login', to: 'sessions#login'
   get '/logout', to: 'sessions#logout'
+  get 'set_as_uncomplete_task', to: 'tasks#set_as_uncomplete_task'
 
 end

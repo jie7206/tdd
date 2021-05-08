@@ -13,12 +13,12 @@ class Project < ApplicationRecord
 
   # 回传已完成的任务数据集
   def completed_tasks
-    select_with "tdd_step >= #{$max_tdd_step_value}"
+    select_with "completed_at is not null"
   end
 
   # 回传未完成的任务数据集
   def uncomplete_tasks
-    select_with "tdd_step < #{$max_tdd_step_value}"
+    select_with "completed_at is null"
   end
 
   # 取出依照条件筛选的数据集

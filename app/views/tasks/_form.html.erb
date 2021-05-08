@@ -12,6 +12,15 @@
     <td>TDD步骤：</td>
     <td><%= f.select(:tdd_step, tdd_step_options) %></td>
   </tr>
+<% if @task.completed_at %>
+  <tr>
+    <td>完成时间：</td>
+    <td>
+      <%= f.datetime_select(:completed_at, use_month_numbers: true) %> &nbsp;
+      <%= link_to '设为未完成(清空完成时间并返回步骤1)', set_as_uncomplete_task_path(id:@task.id) %>
+    </td>
+  </tr>
+<% end %>
   <tr><td colspan="2" align="right">
       <small>(<%= link_to "返回列表", projects_path %>)</small>
       <%= f.submit("更新任务") %></td></tr>
