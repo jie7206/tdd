@@ -17,9 +17,16 @@
 function copyText(task_dom_id) {
   var text = document.getElementById(task_dom_id).innerText;
   var copy_temp = document.getElementById("copy_temp");
-  // copy_temp.value = "#"+task_dom_id.split("_")[3]+text;
   copy_temp.value = text;
   copy_temp.select();
   document.execCommand("copy");
   alert("任务名称已复制成功!");
+}
+function copyGitText(task_dom_id) {
+  var text = document.getElementById(task_dom_id).innerText;
+  var copy_temp = document.getElementById("copy_temp");
+  copy_temp.value = "git commit -m '"+text+"'";
+  copy_temp.select();
+  document.execCommand("copy");
+  alert(copy_temp.value+" 已复制成功!");
 }

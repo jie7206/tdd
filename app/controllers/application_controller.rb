@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   $project_name_length_error_msg = "项目名称的长度不能超过#{$project_name_max_length}个字元"
   $task_name_max_length = 80
   $task_name_length_error_msg = "任务名称的长度不能超过#{$task_name_max_length}个字元"
-  $tdd_steps_array = ["编写测试","通过测试","清除重复","模组重构","代码好读","上传Git"]
+  $tdd_steps_array = ["编写测试码","通过 rspec","清除重复","模组重构","写好注释","完成 git commit"]
   $max_tdd_step_value = $tdd_steps_array.size
   $login_error_message = 'PIN码输入错误！'
 

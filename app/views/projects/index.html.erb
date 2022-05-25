@@ -1,14 +1,15 @@
 <h3 id="projects_list_title">项目列表</h3>
 <table id="project_list_table">
   <thead>
-    <tr>
+    <tr align="center">
       <td>项目名称</td>
       <td>任务名称</td>
-      <% td_width = 75 %>
+      <% td_width = 69 %>
       <% tn = 1 %>
       <% tdd_steps.each do |step| %>
         <% arrow = tn == tdd_steps.size ? '' : ' ➠' %>
-        <td width="<%=td_width%>"><%= step %><%= arrow %></td>
+        <td width="<%=td_width%>" style="font-size:0.7em"><%= step %></td>
+        <td width="5" style="font-size:0.85em" valign="middle"><%= arrow %></td>
         <% tn += 1 %>
       <% end %>
     </tr>
@@ -31,22 +32,33 @@
                 <%= top_ico(task.is_top) %>
                 <%= link_to task.name, edit_task_path(task),
                     { id: "#{task_dom_id(project,task)}", class: 'task_name'} %>
-                <%= copy_name_icon(project,task,task.note) %>
+                <% if task.note and !task.note.empty? %>
+                  <%= copy_name_icon(project,task,task.note,'doc.png','copyText','点图标复制任务名称') %>
+                <% else %>
+                  <%= copy_name_icon(project,task,task.note,'T','copyText','点图标复制任务名称') %>
+                <% end %>
+                <%= copy_name_icon(project,task,task.note,'G','copyGitText','点图标组合git commit -m 任务名称') %>
                 <%= link_up_and_down(task) %>
               </td>
             <% #显示已完成步骤图示 %>
             <% task_tdd_step = \
                 task.tdd_step > $max_tdd_step_value ? \
                 $max_tdd_step_value : task.tdd_step %>
-            <% (1..task_tdd_step).each do %>
-              <td align="center"><%= pass_png %></td>
+            <% (1..task_tdd_step).each do |n| %>
+              <td align="center">&nbsp;&nbsp;<%= pass_png %></td>
+              <% if n != tdd_steps.size %>
+                <td></td>
+              <% end %>
             <% end %>
             <% #显示未完成步骤图示与链接 %>
             <% (task.tdd_step+1..tdd_steps.size).each do |n| %>
-              <td align="center">
+              <td align="center">&nbsp;
                 <%= link_to empty_png,
                       {controller: :tasks, action: :update_tdd_step, id: task.id, new_step_num: n},
                       {id: "task_#{task.id}_tdd_step_#{n}"} %></td>
+              <% if n != tdd_steps.size %>
+                <td></td>
+              <% end %>
             <% end %>
             </tr>
         <% end %>

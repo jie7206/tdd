@@ -46,7 +46,7 @@ class TasksController < ApplicationController
 
   # 将任务设置为未完成的任务
   def set_as_uncomplete_task
-    Task.find(params[:id]).update_attributes(completed_at: nil, tdd_step: 1)
+    Task.find(params[:id]).update_attributes(completed_at: nil, tdd_step: 0)
     flash[:info] = "任务已设为未完成的任务！"
     go_projects_index
   end

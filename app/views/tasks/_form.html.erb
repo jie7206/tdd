@@ -17,7 +17,7 @@
     <td>完成时间：</td>
     <td>
       <%= f.datetime_select(:completed_at, use_month_numbers: true) %> &nbsp;
-      <%= link_to '设为未完成(清空完成时间并返回步骤1)', set_as_uncomplete_task_path(id:@task.id) %>
+      <%= link_to '设为未完成(清空完成时间并返回步骤0)', set_as_uncomplete_task_path(id:@task.id) %>
     </td>
   </tr>
 <% end %>

@@ -18,18 +18,18 @@ module ApplicationHelper
   end
 
   # 建立显示TDD步骤的图示
-  def build_step_icon(name, title, css_name, id=nil, icon_width=23)
+  def build_step_icon(name, title, css_name, id=nil, icon_width=30)
     image_tag(name, title: title, width: icon_width, class: css_name, id: id)+raw('&nbsp;'*4)
   end
 
   # 建立已通过此步骤的图示
   def pass_png
-    build_step_icon 'pass.png', '已通过此步骤', 'pass_png'
+    build_step_icon 'check_ok.png', '已通过此步骤', 'pass_png'
   end
 
   # 建立未通过此步骤的图示
   def empty_png(id=nil)
-    build_step_icon 'empty.png', '点击设为完成', 'empty_png', id
+    build_step_icon 'check_no.png', '点击设为完成', 'empty_png', id
   end
 
   # 回传所有TDD步骤的设定阵列
@@ -85,8 +85,10 @@ module ApplicationHelper
   end
 
   # 显示复制任务名称图示
-  def copy_name_icon( project, task, note )
-    raw link_to image_tag('doc.png',align:'absmiddle'), '#', { onclick: "copyText('#{task_dom_id(project,task)}');", title: "#{note}" }
+  def copy_name_icon( project, task, note, img_or_text, js_func, func_note )
+    text = img_or_text.include?('.png') ? image_tag(img_or_text,align:'absmiddle') : img_or_text
+    note_text = (note && !note.empty?) ? "\n任务备注：\n#{note}" : ''
+    raw link_to text, '#', { onclick: "#{js_func}('#{task_dom_id(project,task)}');", title: "#{func_note}#{note_text}" }
   end
 
   # 建立排序上下箭头链接
