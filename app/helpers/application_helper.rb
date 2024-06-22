@@ -18,7 +18,7 @@ module ApplicationHelper
   end
 
   # 建立显示TDD步骤的图示
-  def build_step_icon(name, title, css_name, id=nil, icon_width=30)
+  def build_step_icon(name, title, css_name, id=nil, icon_width=22)
     image_tag(name, title: title, width: icon_width, class: css_name, id: id)+raw('&nbsp;'*4)
   end
 
